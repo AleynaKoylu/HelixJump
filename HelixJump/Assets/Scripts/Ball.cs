@@ -4,15 +4,26 @@ using UnityEngine;
 
 public class Ball : MonoBehaviour
 {
-    // Start is called before the first frame update
+    Rigidbody rb;
+
+    [SerializeField]
+    float jumpValue;
     void Start()
     {
-        
+        rb = gameObject.GetComponent<Rigidbody>();
     }
 
-    // Update is called once per frame
+    
     void Update()
     {
-        
+        gameObject.transform.position = new Vector3(0, transform.position.y, -1.79f);
+    }
+    private void OnCollisionEnter(Collision collision)
+    {
+        if (collision.gameObject.CompareTag("Ground"))
+        {
+            rb.velocity = Vector3.zero;
+            rb.velocity = Vector3.up * jumpValue;
+        }
     }
 }
